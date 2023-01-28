@@ -1,3 +1,4 @@
-import './style.css'
+import './style.css';
+import {App} from './source/todos/app';
 
-console.log('Hola mundo')
+App('#app');
