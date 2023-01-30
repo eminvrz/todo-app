@@ -4,6 +4,7 @@ import { renderTodos } from './use-cases'
 
 
 const ElementIDs = {
+    ClearCompleted: '.clear-completed',
     TodoList: '.todo-list',
     NewTodoInput: '#new-todo-input',
 }
@@ -30,6 +31,7 @@ export const App = (elementId) => {
     // Referencias HTML
     const newDescriptionInput = document.querySelector( ElementIDs.NewTodoInput );
     const todoListUL = document.querySelector(ElementIDs.TodoList);
+    const clearCompletedButton = document.querySelector(ElementIDs.ClearCompleted);
 
     // Listeners
         // para agregar un nuevo todo
@@ -47,7 +49,7 @@ export const App = (elementId) => {
         const element = event.target.closest('[data-id]');
         todoStore.toogleTodo(element.getAttribute('data-id'));
         displayTodos();
-    })
+    });
         // para eliminar el todo
     todoListUL.addEventListener('click', (event) => {
         const isDestroyElement = event.target.className === 'destroy';
@@ -55,6 +57,10 @@ export const App = (elementId) => {
         if( !element || !isDestroyElement) return;
         todoStore.deleteTodo(element.getAttribute('data-id'));
         displayTodos();
-
 });
+
+    clearCompletedButton.addEventListener('click', () => {
+        todoStore.deleteCompleted();
+        displayTodos();
+    })
 }
